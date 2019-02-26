@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>My Favorite Places</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<script src='tabletop.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+ }
+ .leaflet-popup-content img {
+  max-width:100%;
+  }
+</style>
+</head>
+<body>
+
+</head>
+<body>
+<style>
+.leaflet-popup-content img {
+  max-width:100%;
+  }
+</style>
+<div id='map'></div>
+
+<script type="text/javascript">
+L.mapbox.accessToken = 'pk.eyJ1Ijoiam13aGl0ZTEyMCIsImEiOiJiNDJmOTlmMThiNWM3M2I0ZGQ5ZWQ5ODc0MjNiZjlmMyJ9.LOl0NORSoqFUy_3-hgb_Hg';
+// Replace 'mapbox.streets' with your map id.
+var mapboxTiles = L.tileLayer('https://api.mapbox.com/v4/jmwhite120.n1mddd9f/{z}/{x}/{y}.png?access_token=' + L.mapbox.accessToken, {
+    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
+});
+
+
+
+var map = L.map('map')
+    .addLayer(mapboxTiles)
+    .setView([41.882059, -87.627815], 14);
+
+
+
+  function showInfo(data, tabletop) {
+    alert("Successfully processed!")
+    console.log(data);
+  }
+  
+  
+
+
+//OUR MARKERS
+//OUR MARKERS
+//OUR MARKERS
+var myLayer = L.mapbox.featureLayer().addTo(map);
+var geoJson = [{
+    type: 'Feature',
+    "geometry": { "type": "Point", "coordinates": [  -87.623713,
+          41.879584 ]},
+    "properties": {
+     "image": "http://chicagogenie.com/wp-content/uploads/2015/04/Art-Institute-of-Chicago.jpg",
+       title: 'Art Institute of Chicago',
+        description: '111 S Michigan, Chicago, IL ',
+        // one can customize markers by adding simplestyle properties
+        // https://www.mapbox.com/guides/an-open-platform/#simplestyle
+        'marker-size': 'large',
+        'marker-symbol': 'art-gallery',
+        'marker-color': '#FF5050'
+    }
+}, {
+    type: 'Feature',
+    "geometry": { "type": "Point", "coordinates": [-87.614038,
+          41.8677573 ]},
+    "properties": {
+        "image": "http://www.destination360.com/north-america/us/illinois/images/s/illinois-shedd-aquarium.jpg",
+         title: 'Shedd Aquarium',
+        description: '1200 S Lake Shore Drive, Chicago, IL ',
+        // one can customize markers by adding simplestyle properties
+        // https://www.mapbox.com/guides/an-open-platform/#simplestyle
+        'marker-size': 'large',
+        'marker-symbol': 'town-hall',
+        'marker-color': '#00FFFF'
+    }
+    }, {
+    type: 'Feature',
+    "geometry": { "type": "Point", "coordinates": [-87.609457,
+          41.891911]},
+    "properties": {
+        "image": "http://d1b8n6kng8vcnt.cloudfront.net/blog/wp-content/uploads/2013/09/navypierparking.jpg",
+          title: 'Navy Pier',
+        description: '600 E Grand Ave, Chicago, IL ',
+       
+        // one can customize markers by adding simplestyle properties
+        // https://www.mapbox.com/guides/an-open-platform/#simplestyle
+        'marker-size': 'large',
+        'marker-color': '#0000FF',
+        'marker-symbol': 'harbor'
+    }
+ }, {
+    type: 'Feature',
+    "geometry": { "type": "Point", "coordinates": [-87.627379,
+          41.881873]},
+    "properties": {
+        "image": "http://www.ibeacon.com/wp-content/uploads/2014/11/StoreExterior2013.jpg",
+         title: 'Target',
+        description: '1 S State St, Chicago, IL',
+        // one can customize markers by adding simplestyle properties
+        // https://www.mapbox.com/guides/an-open-platform/#simplestyle
+        'marker-size': 'large',
+        'marker-symbol': 'grocery',
+        'marker-color': '#FF0000'
+    }
+    }, {
+    type: 'Feature',
+    "geometry": { "type": "Point", "coordinates": [-87.627898,
+          41.891684]},
+    "properties": {
+        "image": "https://c2.staticflickr.com/2/1382/5115793497_6157d6b867_b.jpg",
+         title: 'Chipotle',
+        description: '6 W Grand Ave, Chicago, IL ',
+        // one can customize markers by adding simplestyle properties
+        // https://www.mapbox.com/guides/an-open-platform/#simplestyle
+        'marker-size': 'large',
+        'marker-symbol': 'restaurant',
+        'marker-color': '#006600'
+        
+    }
+}];
+
+// Add custom popups to each using our custom feature properties
+myLayer.on('layeradd', function(e) {
+    var marker = e.layer,
+        feature = marker.feature;
+
+    // Create custom popup content
+    var popupContent =  
+                            '<img src="' + feature.properties.image + '" />' +
+                            feature.properties.title+ ", " + feature.properties.description
+                        '</a>';
+
+    // http://leafletjs.com/reference.html#popup
+    marker.bindPopup(popupContent,{
+        closeButton: false,
+        minWidth: 320
+    });
+});
+
+// Add features to the map
+myLayer.setGeoJSON(geoJson);
+</script>
+</body>
+</html>
